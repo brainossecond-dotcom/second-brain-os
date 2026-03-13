@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tips — Second Brain OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--blush:#f7dde0;--blush-d:#edbbc2;--petal:#fce8ed;--lav:#e8e0f0;--lav-d:#c9bce0;--lav-t:#7a6a9a;--sage:#d4e4d8;--sage-d:#9abda6;--sage-t:#4a7a5a;--butter:#fdf3d8;--ivory:#fdfaf6;--ivory-w:#faf5ef;--rose:#c97080;--rose-l:#e8a0aa;--plum:#7a5068;--text:#3a2a32;--muted:#9a7a88;--border:rgba(201,112,128,0.15);--border-l:rgba(169,140,200,0.2);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--text);overflow-x:hidden;}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:1;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:16px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(253,250,246,0.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:22px;color:var(--plum);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--rose);}
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center;}
+.nav-links a{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--rose);}
+.nav-cta{background:var(--rose)!important;color:#fff!important;padding:9px 22px;border-radius:50px;font-size:11px!important;font-weight:500!important;letter-spacing:1.5px!important;}
+
+.page-header{padding:130px 52px 72px;position:relative;overflow:hidden;z-index:2;background:linear-gradient(160deg,var(--butter) 0%,var(--sage) 50%,var(--ivory) 100%);}
+.page-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--ivory));pointer-events:none;}
+.inner{max-width:1100px;margin:0 auto;}
+.s-eye{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--rose-l);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.s-eye::before{content:'✦';font-size:7px;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:400;line-height:0.95;letter-spacing:-1.5px;color:var(--plum);margin-bottom:10px;}
+.page-title em{font-style:italic;color:var(--rose);}
+.page-title .script{font-family:'Dancing Script',cursive;font-size:0.75em;color:var(--sage-t);display:block;margin-top:6px;}
+.page-sub{font-size:16px;font-weight:300;color:var(--muted);line-height:1.75;max-width:520px;margin-top:20px;}
+
+/* CATEGORY SECTIONS */
+.tips-section{padding:72px 52px;position:relative;z-index:2;}
+.tips-section:nth-child(even){background:var(--ivory-w);}
+.tips-section:nth-child(odd){background:var(--ivory);}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;}
+.section-head-left{}
+.cat-eye{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.cat-eye::before{content:'✦';font-size:7px;}
+.cat-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:400;line-height:1.1;letter-spacing:-0.5px;color:var(--plum);}
+.cat-title em{font-style:italic;color:var(--rose);}
+.cat-sub{font-size:13px;font-weight:300;color:var(--muted);margin-top:8px;}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tip-card{border-radius:18px;padding:24px;border:1px solid transparent;transition:transform 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;}
+.tip-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(122,80,104,0.1);}
+.tip-card.blush{background:var(--petal);border-color:var(--border);}
+.tip-card.lav{background:var(--lav);border-color:var(--border-l);}
+.tip-card.sage{background:var(--sage);border-color:rgba(154,189,166,0.3);}
+.tip-card.butter{background:var(--butter);border-color:rgba(212,180,100,0.2);}
+.tip-n{font-family:'DM Serif Display',serif;font-size:52px;font-style:italic;opacity:0.1;position:absolute;top:12px;right:18px;line-height:1;color:var(--plum);}
+.tip-doodle{margin-bottom:14px;}
+.tip-card h4{font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--plum);margin-bottom:8px;line-height:1.3;}
+.tip-card p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;}
+.tip-freq{display:inline-block;margin-top:12px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,112,128,0.12);color:var(--rose);padding:3px 10px;border-radius:10px;}
+
+/* WIDE CARD */
+.tip-wide{grid-column:span 3;border-radius:22px;padding:32px 36px;display:flex;align-items:center;gap:36px;}
+.tip-wide .tip-wide-text h4{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--plum);margin-bottom:10px;}
+.tip-wide .tip-wide-text p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;max-width:700px;}
+
+footer{background:var(--plum);border-top:1px solid rgba(252,232,237,0.09);padding:28px 52px;}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.foot-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--petal);text-decoration:none;}
+.foot-logo em{font-style:italic;color:var(--blush-d);}
+.foot-links{display:flex;gap:20px;list-style:none;}
+.foot-links a{font-size:11px;color:rgba(252,232,237,0.4);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--petal);}
+.foot-copy{font-size:10px;color:rgba(252,232,237,0.25);}
+
+@media(max-width:960px){nav{padding:14px 22px;}.nav-links{display:none;}
+.page-header,.tips-section{padding-left:22px;padding-right:22px;}
+.tips-grid{grid-template-columns:1fr;}
+.tip-wide{grid-column:span 1;}
+footer{padding:24px 22px;}.foot-inner{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">Second Brain <em>OS</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#templates">Templates</a></li>
+    <li><a href="index.html#community">Community</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="tips.html" class="active">Tips</a></li>
+    <li><a href="freebies.html">Freebies</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Shop</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="inner">
+    <div class="s-eye">Second Brain OS</div>
+    <h1 class="page-title">Student<br><em>Tips.</em><span class="script">Quick wins for every area of life.</span></h1>
+    <p class="page-sub">Bite-sized wisdom on studying, money, Notion, and student life — organised by topic so you find exactly what you need.</p>
+  </div>
+</div>
+
+<!-- STUDY TIPS -->
+<div class="tips-section" id="study">
+  <div class="inner">
+    <div class="section-head">
+      <div class="section-head-left">
+        <div class="cat-eye" style="color:var(--rose-l);">Study</div>
+        <h2 class="cat-title">Study smarter,<br><em>not harder.</em></h2>
+        <p class="cat-sub">Techniques that actually work — backed by how your brain really learns.</p>
+      </div>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card blush">
+        <div class="tip-n">01</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M7 5h18v22H7z" rx="2" fill="#fce8ed" stroke="#c97080" stroke-width="1.2"/><path d="M7 5h18v22H7z" fill="#fce8ed" stroke="#c97080" stroke-width="1.2" rx="2"/><path d="M11 13h10M11 17h10M11 21h7" stroke="#c97080" stroke-width="1.2" stroke-linecap="round"/><rect x="10" y="9" width="4" height="4" rx="1" fill="#edbbc2"/></svg></div>
+        <h4>Review your notes within 24 hours</h4>
+        <p>Memory research shows you forget 70% of new information within a day. A quick 10-minute review dramatically improves what you keep.</p>
+        <span class="tip-freq">Study habit</span>
+      </div>
+      <div class="tip-card lav">
+        <div class="tip-n">02</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="11" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2"/><path d="M16 10v6l4 4" stroke="#7a6a9a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Use the 25-5 work rhythm</h4>
+        <p>Work for 25 minutes with full focus, then take a 5-minute break. Your brain needs recovery time to consolidate what you've learned.</p>
+        <span class="tip-freq">Focus technique</span>
+      </div>
+      <div class="tip-card sage">
+        <div class="tip-n">03</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="9" height="7" rx="2" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><rect x="17" y="8" width="9" height="7" rx="2" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><rect x="10" y="19" width="9" height="7" rx="2" fill="#9abda6" stroke="#4a7a5a" stroke-width="1.2"/><path d="M13 12h6" stroke="#4a7a5a" stroke-width="1.2" stroke-linecap="round"/><path d="M21 15l-5 4M11 15l5 4" stroke="#4a7a5a" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <h4>Build a linked notes system, not a folder dump</h4>
+        <p>Folders isolate your notes. Linked databases (like in Notion) let ideas connect across modules — which is how your brain actually stores information.</p>
+        <span class="tip-freq">Notion tip</span>
+      </div>
+      <div class="tip-card butter">
+        <div class="tip-n">04</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 5c0 0-7 6-7 11 0 3.9 3.1 7 7 7s7-3.1 7-7C23 11 16 5 16 5Z" fill="#fdf3d8" stroke="#c97080" stroke-width="1.2"/><path d="M16 23v4M13.5 26h5" stroke="#c97080" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <h4>Teach what you're learning out loud</h4>
+        <p>Explaining a concept aloud — even to yourself — forces you to identify gaps in your understanding. This "protégé effect" is one of the most powerful study methods.</p>
+        <span class="tip-freq">Memory technique</span>
+      </div>
+      <div class="tip-card blush">
+        <div class="tip-n">05</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="22" height="20" rx="3" fill="#fce8ed" stroke="#c97080" stroke-width="1.2"/><path d="M3 11h22" stroke="#c97080" stroke-width="1.2"/><path d="M9 3v4M19 3v4" stroke="#c97080" stroke-width="1.4" stroke-linecap="round"/><rect x="7" y="15" width="4" height="4" rx="1" fill="#edbbc2"/><rect x="13" y="15" width="4" height="4" rx="1" fill="#e8e0f0"/></svg></div>
+        <h4>Plan your week in Notion every Sunday</h4>
+        <p>A 15-minute weekly review — what's due, what to prioritise, and what to let go — prevents the mid-week panic spiral that kills productivity.</p>
+        <span class="tip-freq">Weekly habit</span>
+      </div>
+      <div class="tip-card lav">
+        <div class="tip-n">06</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,5 18.5,11 25,11 20,15.5 22,22 16,18 10,22 12,15.5 7,11 13.5,11" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <h4>Make your Notion beautiful on purpose</h4>
+        <p>This sounds frivolous — it isn't. When your workspace is aesthetically pleasing, you're more likely to open it, use it, and maintain it. Beauty is functional.</p>
+        <span class="tip-freq">Notion tip</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MONEY TIPS -->
+<div class="tips-section" id="money">
+  <div class="inner">
+    <div class="section-head">
+      <div class="section-head-left">
+        <div class="cat-eye" style="color:var(--sage-t);">Money</div>
+        <h2 class="cat-title">Budget tips that<br><em>actually stick.</em></h2>
+        <p class="cat-sub">Simple, honest money advice for students living on real budgets.</p>
+      </div>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card sage">
+        <div class="tip-n">01</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="11" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M16 10v6l3 3" stroke="#4a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Track every penny for one month — just once</h4>
+        <p>You don't have to track forever. But doing it once reveals your real spending patterns — and that awareness changes everything, permanently.</p>
+        <span class="tip-freq">Money habit</span>
+      </div>
+      <div class="tip-card butter">
+        <div class="tip-n">02</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="18" width="5" height="9" rx="1" fill="#fdf3d8" stroke="#c97080" stroke-width="1.2"/><rect x="12" y="12" width="5" height="15" rx="1" fill="#fdf3d8" stroke="#c97080" stroke-width="1.2"/><rect x="20" y="7" width="5" height="20" rx="1" fill="#c97080" stroke="#7a5068" stroke-width="1.2"/></svg></div>
+        <h4>Automate your savings, even if it's £5</h4>
+        <p>Consistent small savings beat occasional large ones. Set a standing order the day your student loan drops — before you have a chance to spend it.</p>
+        <span class="tip-freq">Money habit</span>
+      </div>
+      <div class="tip-card blush">
+        <div class="tip-n">03</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,5 18.5,11 25,11 20,15.5 22,22 16,18 10,22 12,15.5 7,11 13.5,11" fill="#fce8ed" stroke="#c97080" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <h4>Use a "wishlist" column before buying anything</h4>
+        <p>Add items to your Notion wishlist with the date you added them. If you still want it 30 days later, then buy it. Impulse purchases vanish under this rule.</p>
+        <span class="tip-freq">Notion tip</span>
+      </div>
+      <div class="tip-card lav">
+        <div class="tip-n">04</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M5 8h22v16H5z" rx="3" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2"/><path d="M5 8h22v16H5z" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2" rx="3"/><circle cx="16" cy="16" r="4" fill="#c9bce0"/><path d="M5 13h22" stroke="#c9bce0" stroke-width="1"/></svg></div>
+        <h4>Scholarships are free money — apply seriously</h4>
+        <p>Most students don't apply because it "takes too long." A 2-hour application for a £500 scholarship is £250/hour. Use our Scholarship Hunter Kit to stay organised.</p>
+        <span class="tip-freq">Student finance</span>
+      </div>
+      <div class="tip-wide tip-card sage">
+        <div class="tip-doodle" style="flex-shrink:0;"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="18" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.4"/><path d="M22 12v10l6 6" stroke="#4a7a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 32q8 5 16 0" stroke="#9abda6" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></div>
+        <div class="tip-wide-text">
+          <h4>The three-bucket student budget rule</h4>
+          <p>Split your income into: Needs (rent, food, transport), Wants (going out, clothes, fun), and Future (savings, course materials, investments in yourself). Even a rough 60/30/10 split is dramatically better than no split at all. Our free Budget Tracker does this automatically.</p>
+          <span class="tip-freq" style="margin-top:12px;">Money framework</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MINDSET TIPS -->
+<div class="tips-section" id="mindset">
+  <div class="inner">
+    <div class="section-head">
+      <div class="section-head-left">
+        <div class="cat-eye" style="color:var(--lav-t);">Mindset</div>
+        <h2 class="cat-title">Motivation &amp;<br><em>mindset shifts.</em></h2>
+        <p class="cat-sub">Honest reminders for when student life feels like too much.</p>
+      </div>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card lav">
+        <div class="tip-n">01</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4c0 0-8 7-8 13 0 4.4 3.6 8 8 8s8-3.6 8-8C24 11 16 4 16 4Z" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2"/><path d="M16 25v4M13 28h6" stroke="#c9bce0" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <h4>Progress is not always visible in the moment</h4>
+        <p>Studying and building systems feels slow. But every organised note, every tracked assignment, every reviewed page compounds. Trust the process — it's working.</p>
+      </div>
+      <div class="tip-card blush">
+        <div class="tip-n">02</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polygon points="16,5 18.5,11 25,11 20,15.5 22,22 16,18 10,22 12,15.5 7,11 13.5,11" fill="#f7dde0" stroke="#c97080" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <h4>Done is better than perfect, especially with notes</h4>
+        <p>An imperfect Notion page you actually use beats a beautifully planned system you never start. Get something down. Refine later.</p>
+      </div>
+      <div class="tip-card sage">
+        <div class="tip-n">03</div>
+        <div class="tip-doodle"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="14" r="7" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M10 22c0 0 2 5 6 5s6-5 6-5" stroke="#9abda6" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M13 14c0 0 1 3 3 3s3-3 3-3" stroke="#4a7a5a" stroke-width="1" fill="none" stroke-linecap="round"/></svg></div>
+        <h4>Rest is part of the work</h4>
+        <p>Sleep and recovery aren't rewards you earn after studying — they're part of how learning actually works. Protect your rest as seriously as you protect your deadlines.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <a href="index.html" class="foot-logo">Second Brain <em>OS</em></a>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li><li><a href="blog.html">Blog</a></li>
+      <li><a href="tips.html">Tips</a></li><li><a href="freebies.html">Freebies</a></li>
+      <li><a href="https://brainosaurus.gumroad.com" target="_blank">Shop</a></li>
+    </ul>
+    <p class="foot-copy">© 2025 Second Brain OS · ✦ Beautiful systems for student minds.</p>
+  </div>
+</footer>
+
+<script>
+const cv=document.getElementById('rain'),cx=cv.getContext('2d');
+let W,H,drops=[];
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}resize();window.addEventListener('resize',resize);
+const COLS=['#f7dde0','#edbbc2','#fce8ed','#e8e0f0','#c9bce0','#d4e4d8','#fdf3d8','#c97080'];
+function rc(){return COLS[Math.floor(Math.random()*COLS.length)];}
+function rn(a,b){return a+Math.random()*(b-a);}
+function drawCap(x,y,s,col,ang){
+  cx.save();cx.translate(x,y);cx.rotate(ang);cx.globalAlpha=0.5;
+  cx.beginPath();cx.moveTo(0,-s);cx.lineTo(s*1.1,-s*0.15);cx.lineTo(0,s*0.55);cx.lineTo(-s*1.1,-s*0.15);cx.closePath();
+  cx.fillStyle=col;cx.fill();cx.strokeStyle='#7a5068';cx.lineWidth=0.8;cx.stroke();
+  cx.beginPath();cx.arc(0,-s,s*0.16,0,Math.PI*2);cx.fillStyle='#edbbc2';cx.globalAlpha=0.75;cx.fill();
+  cx.beginPath();cx.moveTo(s*0.5,-s*0.55);cx.bezierCurveTo(s*1.1,-s*0.2,s*1.2,s*0.4,s*0.9,s*0.7);
+  cx.strokeStyle='#c97080';cx.lineWidth=1;cx.globalAlpha=0.6;cx.stroke();
+  cx.beginPath();cx.arc(s*0.9,s*0.72,s*0.13,0,Math.PI*2);cx.fillStyle='#c97080';cx.globalAlpha=0.7;cx.fill();
+  cx.restore();
+}
+function spawn(init){drops.push({x:rn(0,W),y:init?rn(-H,H):rn(-120,-10),vx:rn(-0.3,0.3),vy:rn(0.5,1.4),size:rn(9,17),ang:rn(0,Math.PI*2),spin:rn(-0.012,0.012),col:rc(),alpha:rn(0.35,0.7)});}
+(function init(){drops=[];let n=Math.floor(W/24);for(let i=0;i<n;i++)spawn(true);})();
+(function loop(){cx.clearRect(0,0,W,H);for(let i=drops.length-1;i>=0;i--){const d=drops[i];d.x+=d.vx;d.y+=d.vy;d.ang+=d.spin;cx.globalAlpha=d.alpha;drawCap(d.x,d.y,d.size,d.col,d.ang);if(d.y>H+80){drops.splice(i,1);spawn(false);}}cx.globalAlpha=1;requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>

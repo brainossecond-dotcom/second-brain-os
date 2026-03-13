@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tools — Second Brain OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--blush:#f7dde0;--blush-d:#edbbc2;--petal:#fce8ed;--lav:#e8e0f0;--lav-d:#c9bce0;--lav-t:#7a6a9a;--sage:#d4e4d8;--sage-d:#9abda6;--sage-t:#4a7a5a;--butter:#fdf3d8;--ivory:#fdfaf6;--ivory-w:#faf5ef;--rose:#c97080;--rose-l:#e8a0aa;--plum:#7a5068;--text:#3a2a32;--muted:#9a7a88;--border:rgba(201,112,128,0.15);--border-l:rgba(169,140,200,0.2);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--text);overflow-x:hidden;}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:1;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:16px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(253,250,246,0.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:22px;color:var(--plum);text-decoration:none;}
+.nav-logo em{font-style:italic;color:var(--rose);}
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center;}
+.nav-links a{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--rose);}
+.nav-cta{background:var(--rose)!important;color:#fff!important;padding:9px 22px;border-radius:50px;font-size:11px!important;font-weight:500!important;letter-spacing:1.5px!important;}
+
+.page-header{padding:130px 52px 72px;position:relative;overflow:hidden;z-index:2;background:linear-gradient(160deg,var(--lav) 0%,var(--petal) 50%,var(--ivory) 100%);}
+.page-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--ivory));pointer-events:none;}
+.inner{max-width:1100px;margin:0 auto;}
+.s-eye{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--rose-l);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.s-eye::before{content:'✦';font-size:7px;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:400;line-height:0.95;letter-spacing:-1.5px;color:var(--plum);}
+.page-title em{font-style:italic;color:var(--rose);}
+.page-title .script{font-family:'Dancing Script',cursive;font-size:0.75em;color:var(--lav-t);display:block;margin-top:6px;}
+.page-sub{font-size:16px;font-weight:300;color:var(--muted);line-height:1.75;max-width:520px;margin-top:20px;}
+
+/* HERO FREEBIES PROMISE */
+.promise-strip{padding:0 52px;position:relative;z-index:2;margin-top:-10px;background:var(--ivory);}
+.promise-inner{max-width:1100px;margin:0 auto;display:flex;gap:32px;padding:32px 0 48px;flex-wrap:wrap;}
+.promise-item{display:flex;align-items:center;gap:12px;}
+.promise-item svg{flex-shrink:0;}
+.promise-item p{font-size:13px;font-weight:400;color:var(--muted);}
+.promise-item strong{color:var(--plum);font-weight:500;}
+
+/* FREEBIES GRID */
+.freebies{padding:0 52px 80px;position:relative;z-index:2;}
+.free-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1100px;margin:0 auto;}
+.free-card{background:rgba(253,250,246,0.95);border:1px solid var(--border);border-radius:24px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;}
+.free-card:hover{transform:translateY(-7px);box-shadow:0 22px 54px rgba(122,80,104,0.12);}
+.free-visual{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.free-visual::after{content:'FREE';position:absolute;top:14px;right:16px;font-size:9px;font-weight:700;letter-spacing:2.5px;background:rgba(74,122,90,0.15);color:var(--sage-t);padding:4px 11px;border-radius:20px;border:1px solid rgba(154,189,166,0.4);}
+.free-body{padding:24px 26px 28px;}
+.free-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rose-l);margin-bottom:10px;}
+.free-body h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--plum);margin-bottom:10px;line-height:1.25;}
+.free-body p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;margin-bottom:20px;}
+.free-features{display:flex;flex-direction:column;gap:6px;margin-bottom:22px;}
+.free-feat{font-size:11px;font-weight:400;color:var(--muted);display:flex;align-items:center;gap:7px;}
+.free-feat::before{content:'';width:14px;height:1px;background:var(--rose-l);flex-shrink:0;}
+.free-dl{display:inline-flex;align-items:center;gap:8px;background:var(--rose);color:#fff;padding:12px 26px;border-radius:50px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:background 0.2s;}
+.free-dl:hover{background:var(--plum);}
+
+/* FEATURED FREEBIE */
+.free-featured{grid-column:span 3;background:linear-gradient(135deg,var(--petal),var(--lav));border:1px solid var(--border);border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transition:box-shadow 0.3s;}
+.free-featured:hover{box-shadow:0 22px 54px rgba(122,80,104,0.12);}
+.ff-visual{background:linear-gradient(160deg,var(--blush-d) 0%,var(--lav-d) 100%);padding:48px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:16px;position:relative;overflow:hidden;}
+.ff-visual::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.1);}
+.ff-big{font-family:'DM Serif Display',serif;font-size:clamp(40px,5vw,64px);font-style:italic;color:var(--plum);line-height:0.92;}
+.ff-sub{font-size:13px;font-weight:300;color:var(--plum-l);margin-top:8px;}
+.ff-body{padding:48px;display:flex;flex-direction:column;justify-content:center;}
+.ff-eye{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose-l);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.ff-eye::before{content:'✦';font-size:7px;}
+.ff-body h2{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,32px);font-weight:500;color:var(--plum);line-height:1.25;margin-bottom:14px;}
+.ff-body p{font-size:14px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:24px;}
+.ff-perks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.ff-perk{font-size:11px;font-weight:500;background:rgba(201,112,128,0.1);color:var(--rose);padding:4px 12px;border-radius:20px;border:1px solid var(--border);}
+
+/* BONUS SECTION */
+.bonus{padding:0 52px 80px;position:relative;z-index:2;background:var(--ivory-w);}
+.bonus-inner{max-width:1100px;margin:0 auto;padding-top:64px;}
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;}
+.bonus-card{border-radius:18px;padding:22px;border:1px solid transparent;transition:transform 0.2s;}
+.bonus-card:hover{transform:translateY(-3px);}
+.bc1{background:var(--petal);border-color:var(--border);}
+.bc2{background:var(--lav);border-color:var(--border-l);}
+.bc3{background:var(--sage);border-color:rgba(154,189,166,0.3);}
+.bonus-card svg{margin-bottom:12px;}
+.bonus-card h4{font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--plum);margin-bottom:7px;}
+.bonus-card p{font-size:12px;font-weight:300;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.bonus-link{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:5px;}
+
+footer{background:var(--plum);border-top:1px solid rgba(252,232,237,0.09);padding:28px 52px;}
+.foot-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.foot-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--petal);text-decoration:none;}
+.foot-logo em{font-style:italic;color:var(--blush-d);}
+.foot-links{display:flex;gap:20px;list-style:none;}
+.foot-links a{font-size:11px;color:rgba(252,232,237,0.4);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--petal);}
+.foot-copy{font-size:10px;color:rgba(252,232,237,0.25);}
+
+@media(max-width:960px){nav{padding:14px 22px;}.nav-links{display:none;}
+.page-header,.promise-strip,.freebies,.bonus{padding-left:22px;padding-right:22px;}
+.free-grid,.bonus-grid{grid-template-columns:1fr;}
+.free-featured{grid-column:span 1;grid-template-columns:1fr;}
+.ff-visual{min-height:180px;padding:36px 28px;}
+footer{padding:24px 22px;}.foot-inner{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">Second Brain <em>OS</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#templates">Templates</a></li>
+    <li><a href="index.html#community">Community</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="tips.html">Tips</a></li>
+    <li><a href="freebies.html" class="active">Freebies</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Shop</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="inner">
+    <div class="s-eye">Second Brain OS</div>
+    <h1 class="page-title">Free<br><em>Tools.</em><span class="script">Yours to keep, always.</span></h1>
+    <p class="page-sub">Beautifully designed Notion templates, checklists, and planners — completely free. No email required, no strings attached.</p>
+  </div>
+</div>
+
+<div class="promise-strip">
+  <div class="promise-inner">
+    <div class="promise-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="#4a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>Always free</strong> — no hidden fees ever</p>
+    </div>
+    <div class="promise-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="#4a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>No email required</strong> to download</p>
+    </div>
+    <div class="promise-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="#4a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>Works on free Notion</strong> — no paid plan needed</p>
+    </div>
+    <div class="promise-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="#4a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>Instant access</strong> — download and duplicate</p>
+    </div>
+  </div>
+</div>
+
+<div class="freebies">
+  <div class="free-grid">
+
+    <!-- FEATURED -->
+    <div class="free-featured">
+      <div class="ff-visual">
+        <div class="ff-big">Budget<br>Tracker</div>
+        <p class="ff-sub">Our most downloaded template</p>
+      </div>
+      <div class="ff-body">
+        <div class="ff-eye">Most popular freebie</div>
+        <h2>Student Budget Tracker</h2>
+        <p>The simplest way to know where your money goes. Track income, fixed expenses, variable spending, and savings goals — all in one beautiful Notion page.</p>
+        <div class="ff-perks">
+          <span class="ff-perk">Monthly overview</span><span class="ff-perk">Expense categories</span>
+          <span class="ff-perk">Savings tracker</span><span class="ff-perk">Income log</span>
+        </div>
+        <a href="https://brainosaurus.gumroad.com" target="_blank" class="free-dl">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v8M4 7l3 3 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 11h10" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Download free
+        </a>
+      </div>
+    </div>
+
+    <div class="free-card">
+      <div class="free-visual" style="background:linear-gradient(135deg,var(--butter),var(--sage));">
+        <svg width="68" height="68" viewBox="0 0 68 68" fill="none"><rect x="12" y="10" width="44" height="48" rx="5" fill="#fdf3d8" stroke="#c97080" stroke-width="1.6"/><path d="M22 26h24M22 33h24M22 40h16" stroke="#c97080" stroke-width="1.6" stroke-linecap="round"/><rect x="20" y="17" width="8" height="8" rx="2" fill="#edbbc2" stroke="#c97080" stroke-width="1"/><path d="M22 19l2 2 3-3" stroke="#c97080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+      <div class="free-body">
+        <div class="free-tag">Semester Planning</div>
+        <h3>Semester Kickstart Checklist</h3>
+        <p>Everything you need to do at the start of a new semester — never miss a single setup step again.</p>
+        <div class="free-features">
+          <div class="free-feat">Module and course setup checklist</div>
+          <div class="free-feat">Admin tasks to tick off</div>
+          <div class="free-feat">Goals-setting prompts</div>
+          <div class="free-feat">Notion setup guide</div>
+        </div>
+        <a href="https://brainosaurus.gumroad.com" target="_blank" class="free-dl">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 6l3 3 3-3" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 10h10" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Download free
+        </a>
+      </div>
+    </div>
+
+    <div class="free-card">
+      <div class="free-visual" style="background:linear-gradient(135deg,var(--lav),var(--petal));">
+        <svg width="68" height="68" viewBox="0 0 68 68" fill="none"><rect x="10" y="12" width="48" height="44" rx="5" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.6"/><path d="M10 24h48" stroke="#c9bce0" stroke-width="1.4"/><path d="M20 12v6M48 12v6" stroke="#c97080" stroke-width="1.6" stroke-linecap="round"/><rect x="16" y="30" width="10" height="10" rx="2" fill="#c9bce0"/><rect x="30" y="30" width="10" height="10" rx="2" fill="#fce8ed" stroke="#c97080" stroke-width="1"/><rect x="44" y="30" width="10" height="10" rx="2" fill="#c9bce0"/><rect x="16" y="43" width="10" height="10" rx="2" fill="#e8e0f0"/><rect x="30" y="43" width="10" height="10" rx="2" fill="#c9bce0"/></svg>
+      </div>
+      <div class="free-body">
+        <div class="free-tag">Study Planning</div>
+        <h3>Weekly Study Planner</h3>
+        <p>A clean, minimal weekly layout for students juggling multiple subjects and deadlines.</p>
+        <div class="free-features">
+          <div class="free-feat">7-day layout with time blocks</div>
+          <div class="free-feat">Priority tagging system</div>
+          <div class="free-feat">Weekly goals section</div>
+          <div class="free-feat">Reflection prompt</div>
+        </div>
+        <a href="https://brainosaurus.gumroad.com" target="_blank" class="free-dl">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 6l3 3 3-3" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 10h10" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Download free
+        </a>
+      </div>
+    </div>
+
+    <div class="free-card">
+      <div class="free-visual" style="background:linear-gradient(135deg,var(--petal),var(--butter));">
+        <svg width="68" height="68" viewBox="0 0 68 68" fill="none"><polygon points="34,10 38,22 51,22 42,30 45,43 34,36 23,43 26,30 17,22 30,22" fill="#fdf3d8" stroke="#c97080" stroke-width="1.6" stroke-linejoin="round"/><circle cx="34" cy="28" r="7" fill="#fce8ed" stroke="#edbbc2" stroke-width="1.2"/></svg>
+      </div>
+      <div class="free-body">
+        <div class="free-tag">Career</div>
+        <h3>Scholarship Research Checklist</h3>
+        <p>Step-by-step guide for finding and applying for scholarships — structured to keep you focused.</p>
+        <div class="free-features">
+          <div class="free-feat">Research sources list</div>
+          <div class="free-feat">Application checklist</div>
+          <div class="free-feat">Document tracker</div>
+          <div class="free-feat">Deadline organiser</div>
+        </div>
+        <a href="https://brainosaurus.gumroad.com" target="_blank" class="free-dl">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 6l3 3 3-3" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 10h10" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Download free
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BONUS SECTION -->
+<div class="bonus">
+  <div class="bonus-inner">
+    <div class="s-eye">Also on the blog</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:400;color:var(--plum);line-height:1.1;letter-spacing:-0.5px;">More free <em style="font-style:italic;color:var(--rose);">student resources.</em></h2>
+    <div class="bonus-grid">
+      <div class="bonus-card bc1">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 5h14v18H7z" rx="2" fill="#fce8ed" stroke="#c97080" stroke-width="1.2"/><path d="M7 5h14v18H7z" fill="#fce8ed" stroke="#c97080" stroke-width="1.2" rx="2"/><path d="M10 12h8M10 16h8M10 20h5" stroke="#c97080" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <h4>The student study guide</h4>
+        <p>A free PDF guide to the study techniques that actually work — based on memory science, not hustle culture.</p>
+        <a href="blog.html" class="bonus-link">Read on the blog →</a>
+      </div>
+      <div class="bonus-card bc2">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" fill="#e8e0f0" stroke="#c9bce0" stroke-width="1.2"/><path d="M14 9v5l3 3" stroke="#7a6a9a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h4>The 15-minute morning routine</h4>
+        <p>A simple Notion morning setup that takes under 15 minutes and sets your whole day up with clarity and intention.</p>
+        <a href="blog.html" class="bonus-link">Read on the blog →</a>
+      </div>
+      <div class="bonus-card bc3">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><polygon points="14,5 16.5,11 23,11 18,15.5 20,22 14,18 8,22 10,15.5 5,11 11.5,11" fill="#d4e4d8" stroke="#9abda6" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <h4>How to earn as a student</h4>
+        <p>Practical, honest ways to build income while studying — including selling digital products, freelancing, and more.</p>
+        <a href="blog.html" class="bonus-link">Read on the blog →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <a href="index.html" class="foot-logo">Second Brain <em>OS</em></a>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li><li><a href="blog.html">Blog</a></li>
+      <li><a href="tips.html">Tips</a></li><li><a href="freebies.html">Freebies</a></li>
+      <li><a href="https://brainosaurus.gumroad.com" target="_blank">Shop</a></li>
+    </ul>
+    <p class="foot-copy">© 2025 Second Brain OS · ✦ Beautiful systems for student minds.</p>
+  </div>
+</footer>
+
+<script>
+const cv=document.getElementById('rain'),cx=cv.getContext('2d');
+let W,H,drops=[];
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}resize();window.addEventListener('resize',resize);
+const COLS=['#f7dde0','#edbbc2','#fce8ed','#e8e0f0','#c9bce0','#d4e4d8','#fdf3d8','#c97080'];
+function rc(){return COLS[Math.floor(Math.random()*COLS.length)];}
+function rn(a,b){return a+Math.random()*(b-a);}
+function drawCap(x,y,s,col,ang){
+  cx.save();cx.translate(x,y);cx.rotate(ang);cx.globalAlpha=0.5;
+  cx.beginPath();cx.moveTo(0,-s);cx.lineTo(s*1.1,-s*0.15);cx.lineTo(0,s*0.55);cx.lineTo(-s*1.1,-s*0.15);cx.closePath();
+  cx.fillStyle=col;cx.fill();cx.strokeStyle='#7a5068';cx.lineWidth=0.8;cx.stroke();
+  cx.beginPath();cx.arc(0,-s,s*0.16,0,Math.PI*2);cx.fillStyle='#edbbc2';cx.globalAlpha=0.75;cx.fill();
+  cx.beginPath();cx.moveTo(s*0.5,-s*0.55);cx.bezierCurveTo(s*1.1,-s*0.2,s*1.2,s*0.4,s*0.9,s*0.7);
+  cx.strokeStyle='#c97080';cx.lineWidth=1;cx.globalAlpha=0.6;cx.stroke();
+  cx.beginPath();cx.arc(s*0.9,s*0.72,s*0.13,0,Math.PI*2);cx.fillStyle='#c97080';cx.globalAlpha=0.7;cx.fill();
+  cx.restore();
+}
+function spawn(init){drops.push({x:rn(0,W),y:init?rn(-H,H):rn(-120,-10),vx:rn(-0.3,0.3),vy:rn(0.5,1.4),size:rn(9,17),ang:rn(0,Math.PI*2),spin:rn(-0.012,0.012),col:rc(),alpha:rn(0.35,0.7)});}
+(function init(){drops=[];let n=Math.floor(W/24);for(let i=0;i<n;i++)spawn(true);})();
+(function loop(){cx.clearRect(0,0,W,H);for(let i=drops.length-1;i>=0;i--){const d=drops[i];d.x+=d.vx;d.y+=d.vy;d.ang+=d.spin;cx.globalAlpha=d.alpha;drawCap(d.x,d.y,d.size,d.col,d.ang);if(d.y>H+80){drops.splice(i,1);spawn(false);}}cx.globalAlpha=1;requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>
